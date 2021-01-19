@@ -1,21 +1,31 @@
 import React from "react";
 import SearchPresenter from "./SearchPresenter";
-import { movieApi, tvApi } from "api";
+import { movieApi, tvApi } from "../../api";
 
 export default class extends React.Component {
   state = {
     movieResults: null,
     tvResults: null,
-    searchTerm: "code",
+    searchTerm: "",
     loading: false,
     error: null,
   };
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
       this.searchByTerm();
     }
+  };
+
+  updateTerm = (event) => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({
+      searchTerm: value,
+    });
   };
 
   searchByTerm = async () => {
@@ -33,9 +43,7 @@ export default class extends React.Component {
         tvResults,
       });
     } catch {
-      this.setState({
-        error: "검색어에 해당하는 작품을 찾지 못하였습니다.",
-      });
+      this.setState({ error: "검색 결과를 찾을 수 없습니다." });
     } finally {
       this.setState({ loading: false });
     }
@@ -47,10 +55,11 @@ export default class extends React.Component {
       <SearchPresenter
         movieResults={movieResults}
         tvResults={tvResults}
-        searchTerm={searchTerm}
         loading={loading}
         error={error}
+        searchTerm={searchTerm}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
