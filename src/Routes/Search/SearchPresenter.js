@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Loader from "Components/Loader";
 import Section from "Components/Section";
 import Message from "Components/Message";
+import Poster from "";
 import { movieApi } from "api";
 
 const Container = styled.div`
