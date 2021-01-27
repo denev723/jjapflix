@@ -1,7 +1,8 @@
 import React from "react";
 import HomePresenter from "./HomePresenter";
-import { movieApi } from "api";
+import { moviesApi } from "api";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state = {
     nowPlaying: null,
@@ -15,13 +16,13 @@ export default class extends React.Component {
     try {
       const {
         data: { results: nowPlaying },
-      } = await movieApi.nowPlaying();
+      } = await moviesApi.nowPlaying();
       const {
         data: { results: upcoming },
-      } = await movieApi.upcoming();
+      } = await moviesApi.upcoming();
       const {
         data: { results: popular },
-      } = await movieApi.popular();
+      } = await moviesApi.popular();
       this.setState({
         nowPlaying,
         upcoming,
@@ -29,7 +30,7 @@ export default class extends React.Component {
       });
     } catch {
       this.setState({
-        error: "영화 정보를 찾을 수 없습니다.",
+        error: "Can't find movie information.",
       });
     } finally {
       this.setState({

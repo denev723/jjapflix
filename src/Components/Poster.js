@@ -16,13 +16,13 @@ const Title = styled.span``;
 const Year = styled.span``;
 
 const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
-  <Link to={isMovie ? `/movie/${id}` : `/series/${id}`}>
+  <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
     <Container>
       <ImageContainer>
         <Image bgUrl={imageUrl} />
         <Rating>
           <span role="img" aria-label="rating">
-            ★
+            ⭐️
           </span>{" "}
           {rating}/10
         </Rating>

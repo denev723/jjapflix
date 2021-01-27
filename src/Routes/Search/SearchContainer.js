@@ -1,7 +1,8 @@
 import React from "react";
 import SearchPresenter from "./SearchPresenter";
-import { movieApi, tvApi } from "../../api";
+import { moviesApi, tvApi } from "../../api";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state = {
     movieResults: null,
@@ -34,7 +35,7 @@ export default class extends React.Component {
     try {
       const {
         data: { results: movieResults },
-      } = await movieApi.search(searchTerm);
+      } = await moviesApi.search(searchTerm);
       const {
         data: { results: tvResults },
       } = await tvApi.search(searchTerm);
@@ -43,7 +44,7 @@ export default class extends React.Component {
         tvResults,
       });
     } catch {
-      this.setState({ error: "검색 결과를 찾을 수 없습니다." });
+      this.setState({ error: "Can't find results." });
     } finally {
       this.setState({ loading: false });
     }

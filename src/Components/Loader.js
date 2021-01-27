@@ -6,14 +6,15 @@ const Container = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: 30px;
+  font-size: 28px;
+  margin-top: 20px;
 `;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
   <Container>
     <span role="img" aria-label="Loading">
-      LOADING⏰
+      ⏰
     </span>
   </Container>
 );

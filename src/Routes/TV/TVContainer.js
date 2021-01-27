@@ -1,7 +1,8 @@
 import React from "react";
 import TVPresenter from "./TVPresenter";
-import { tvApi } from "api";
+import { tvApi } from "../../api";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state = {
     topRated: null,
@@ -22,25 +23,18 @@ export default class extends React.Component {
       const {
         data: { results: airingToday },
       } = await tvApi.airingToday();
-      this.setState({
-        topRated,
-        popular,
-        airingToday,
-      });
+      this.setState({ topRated, popular, airingToday });
     } catch {
       this.setState({
-        error: "TV 정보를 찾을 수 없습니다.",
+        error: "Can't find TV information.",
       });
     } finally {
-      this.setState({
-        loading: false,
-      });
+      this.setState({ loading: false });
     }
   }
 
   render() {
     const { topRated, popular, airingToday, loading, error } = this.state;
-    console.log(this.state);
     return (
       <TVPresenter
         topRated={topRated}

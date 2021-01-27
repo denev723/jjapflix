@@ -1,7 +1,8 @@
 import React from "react";
 import DetailPresenter from "./DetailPresenter";
-import { movieApi, tvApi } from "api";
+import { moviesApi, tvApi } from "../../api";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,7 @@ export default class extends React.Component {
     let result = null;
     try {
       if (isMovie) {
-        ({ data: result } = await movieApi.movieDetail(parsedId));
+        ({ data: result } = await moviesApi.movieDetail(parsedId));
       } else {
         ({ data: result } = await tvApi.showDetail(parsedId));
       }
@@ -44,7 +45,6 @@ export default class extends React.Component {
 
   render() {
     const { result, error, loading } = this.state;
-    console.log(this.state);
     return <DetailPresenter result={result} error={error} loading={loading} />;
   }
 }

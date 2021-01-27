@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Loader from "Components/Loader";
 import Section from "Components/Section";
-import Message from "Components/Message";
-import Poster from "";
-import { movieApi } from "api";
+import Message from "../../Components/Message";
+import Poster from "../../Components/Poster";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -34,7 +33,7 @@ const SearchPresenter = ({
   <Container>
     <Form onSubmit={handleSubmit}>
       <Input
-        placeholder="검색어를 입력하세요.."
+        placeholder="검색어를 입력하세요..."
         value={searchTerm}
         onChange={updateTerm}
       />
@@ -44,16 +43,31 @@ const SearchPresenter = ({
     ) : (
       <>
         {movieResults && movieResults.length > 0 && (
-          <Section title="영화 검색 결과">
+          <Section title="Movie Results">
             {movieResults.map((movie) => (
-              <span key={movie.id}>{movie.title}</span>
+              <Poster
+                key={movie.id}
+                id={movie.id}
+                imageUrl={movie.poster_path}
+                title={movie.original_title}
+                rating={movie.vote_average}
+                year={movie.release_date.substring(0, 4)}
+                isMovie={true}
+              />
             ))}
           </Section>
         )}
         {tvResults && tvResults.length > 0 && (
-          <Section title="TV 시리즈 검색결과">
-            {tvResults.map((series) => (
-              <span key={series.id}>{series.name}</span>
+          <Section title="TV Show Results">
+            {tvResults.map((show) => (
+              <Poster
+                key={show.id}
+                id={show.id}
+                imageUrl={show.poster_path}
+                title={show.original_name}
+                rating={show.vote_average}
+                year={show.first_air_date.substring(0, 4)}
+              />
             ))}
           </Section>
         )}
@@ -62,7 +76,7 @@ const SearchPresenter = ({
           movieResults &&
           tvResults.length === 0 &&
           movieResults.length === 0 && (
-            <Message text="검색 결과를 찾을 수 없습니다." color="#95a5a6" />
+            <Message text="Nothing found" color="#95a5a6" />
           )}
       </>
     )}
